@@ -28,6 +28,18 @@
         radial-gradient(circle at 50% 50%, rgba(157,0,255,0.15) 0%, transparent 60%);
       animation: bgMove 20s ease infinite;
       padding: 50px 20px;
+      /* Disable text selection */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+    }
+    /* Allow text selection for textarea */
+    textarea {
+      -webkit-user-select: text; /* Safari */
+      -moz-user-select: text; /* Firefox */
+      -ms-user-select: text; /* IE10+/Edge */
+      user-select: text; /* Standard */
     }
     @keyframes bgMove {
       0%,100% { background-position: 0% 50%, 100% 50%, 50% 50%; }
@@ -260,6 +272,58 @@
     const BASE_URLS = [
      "https://kramat11.github.io/landing-kahf-1766161652367/"
     ];
+
+    // Disable right click, copy, paste, and developer tools
+    document.addEventListener('DOMContentLoaded', () => {
+      // Nonaktifkan klik kanan, kecuali pada textarea
+      document.addEventListener('contextmenu', e => {
+        if (e.target.tagName === 'TEXTAREA') {
+          return; // Izinkan klik kanan di textarea
+        }
+        e.preventDefault();
+        return false;
+      });
+
+      // Nonaktifkan copy, cut, paste, kecuali pada textarea
+      ['copy', 'cut', 'paste'].forEach(event => {
+        document.addEventListener(event, e => {
+          if (e.target.tagName === 'TEXTAREA') {
+            return; // Izinkan copy/paste di textarea
+          }
+          e.preventDefault();
+          return false;
+        });
+      });
+
+      // Nonaktifkan shortcut developer tools, kecuali saat fokus di textarea
+      document.addEventListener('keydown', e => {
+        // Izinkan semua shortcut jika fokus ada di textarea
+        if (e.target.tagName === 'TEXTAREA') {
+          return;
+        }
+
+        // F12
+        if (e.key === 'F12') {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+Shift+I (Chrome/Edge/Firefox DevTools)
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+Shift+J (Chrome Console)
+        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+U (View Source)
+        if (e.ctrlKey && e.key === 'u') {
+          e.preventDefault();
+          return false;
+        }
+      });
+    });
 
     function rand8() {
       const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
