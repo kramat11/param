@@ -28,14 +28,17 @@
         radial-gradient(circle at 50% 50%, rgba(157,0,255,0.15) 0%, transparent 60%);
       animation: bgMove 20s ease infinite;
       padding: 50px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       /* Disable text selection */
       -webkit-user-select: none; /* Safari */
       -moz-user-select: none; /* Firefox */
       -ms-user-select: none; /* IE10+/Edge */
       user-select: none; /* Standard */
     }
-    /* Allow text selection for textarea */
-    textarea {
+    /* Allow text selection for input fields */
+    input {
       -webkit-user-select: text; /* Safari */
       -moz-user-select: text; /* Firefox */
       -ms-user-select: text; /* IE10+/Edge */
@@ -44,6 +47,31 @@
     @keyframes bgMove {
       0%,100% { background-position: 0% 50%, 100% 50%, 50% 50%; }
       50% { background-position: 100% 50%, 0% 50%, 50% 30%; }
+    }
+    .login-container {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      padding: 50px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      width: 100%;
+      max-width: 450px;
+      animation: cardIn 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    @keyframes cardIn {
+      to { opacity:1; transform:translateY(0); }
+    }
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--pink), var(--cyan));
+      border-radius: 28px 28px 0 0;
     }
     h1 {
       text-align:center;
@@ -68,57 +96,30 @@
       margin-bottom:50px;
       font-weight:500;
     }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 32px;
-      max-width: 1600px;
-      margin: 0 auto;
+    .form-group {
+      margin-bottom: 25px;
     }
-    .card {
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 28px;
-      padding: 36px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      animation: cardIn 0.8s ease forwards;
-      opacity: 0;
-      transform: translateY(40px);
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      font-weight: 500;
     }
-    .card:nth-child(1) { animation-delay: 0.1s; }
-    .card:nth-child(2) { animation-delay: 0.2s; }
-    .card:nth-child(3) { animation-delay: 0.3s; }
-    @keyframes cardIn {
-      to { opacity:1; transform:translateY(0); }
+    input {
+      width: 100%;
+      padding: 18px 24px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px;
+      color: #fff;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      transition: border 0.3s;
     }
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 5px;
-      background: linear-gradient(90deg, var(--pink), var(--cyan));
-      border-radius: 28px 28px 0 0;
-    }
-    .card:hover {
-      transform: translateY(-16px);
-      box-shadow: 0 25px 60px rgba(255,45,146,0.35);
-    }
-    h2 {
-      font-size: 1.9rem;
-      text-align:center;
-      margin-bottom: 28px;
-      font-weight: 900;
-      background: linear-gradient(90deg, var(--pink), var(--cyan));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-    /* Warna khusus card l.wl.co */
-    .card:nth-child(3) h2 {
-      background: linear-gradient(90deg, var(--orange), var(--purple));
-      -webkit-background-clip: text;
-      color: transparent;
+    input:focus {
+      outline: none;
+      border: 0 0 0 3px rgba(255,45,146,0.3);
+      border-color: var(--pink);
     }
     button {
       padding: 18px 28px;
@@ -133,25 +134,10 @@
       overflow: hidden;
       transition: all 0.4s ease;
     }
-    .btn-generate {
+    .btn-login {
       background: linear-gradient(135deg, var(--pink), #ff509d);
       color: white;
       box-shadow: 0 10px 30px rgba(255,45,146,0.5);
-    }
-    .btn-convert {
-      background: linear-gradient(135deg, #1877f2, #00c8ff);
-      color: white;
-      box-shadow: 0 10px 30px rgba(24,119,242,0.5);
-    }
-    .btn-wl {
-      background: linear-gradient(135deg, var(--orange), var(--purple));
-      color: white;
-      box-shadow: 0 10px 30px rgba(157,0,255,0.5);
-    }
-    .btn-copy {
-      background: linear-gradient(135deg, var(--cyan), #00ff9d);
-      color: #000;
-      font-weight: 900;
     }
     button::after {
       content: '';
@@ -172,158 +158,326 @@
       100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
     }
     button:hover { transform: translateY(-5px); }
-    textarea {
-      width: 100%;
-      height: 300px;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 18px;
-      padding: 20px;
-      color: #fff;
-      font-size: 15px;
-      resize: vertical;
-      margin: 16px 0;
-      backdrop-filter: blur(12px);
-      transition: border 0.3s;
-    }
-    textarea:focus {
-      outline: none;
-      border: 0 0 0 3px rgba(255,45,146,0.3);
-      border-color: var(--pink);
-    }
-    .result {
-      margin-top: 24px;
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px;
-      padding: 24px;
-      max-height: 460px;
-      overflow-y: auto;
+    .error {
+      color: #ff6b6b;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(255,107,107,0.1);
+      border: 1px solid rgba(255,107,107,0.3);
       display: none;
     }
-    .result a {
-      color: var(--cyan);
-      word-break: break-all;
-      display: block;
-      margin: 10px 0;
-      padding: 8px;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-    .result a:hover {
-      background: rgba(0,255,157,0.1);
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
       color: #fff;
-      padding-left: 16px;
-    }
-    footer {
-      text-align:center;
-      margin-top: 100px;
-      opacity: 0.6;
-      font-size: 15px;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
       font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .logout-btn:hover {
+      background: rgba(255,45,146,0.2);
+      border-color: var(--pink);
     }
   </style>
 </head>
 <body>
 
-  <h1>Instalive Tools</h1>
-  <p class="subtitle">Generate 100 random • Facebook l.php bypass • l.wl.co raw debug (no encode)</p>
-
-  <div class="container">
-
-    <!-- CARD 1: RANDOM -->
-    <div class="card">
-      <h2>Generate 100 Random</h2>
-      <button class="btn-generate" onclick="generateRandom()">GENERATE 100 LINK</button>
-      <div class="result" id="randomResult">
-        <button class="btn-copy" onclick="copyRandom()">COPY SEMUA LINK</button>
-        <div id="randomOutput"></div>
+  <!-- LOGIN PAGE -->
+  <div id="loginPage" class="login-container">
+    <h1>Instalive Tools</h1>
+    <p class="subtitle">Login untuk mengakses tools</p>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Masukkan username" required>
       </div>
-    </div>
-
-    <!-- CARD 2: FACEBOOK -->
-    <div class="card">
-      <h2>Facebook l.php Bypass</h2>
-      <textarea id="inputLinks" placeholder="Tempel link Instalive di sini..."></textarea>
-      <button class="btn-convert" onclick="convertToFB()">CONVERT KE FACEBOOK</button>
-      <div class="result" id="fbResult">
-        <button class="btn-copy" onclick="copyFB()">COPY SEMUA FB LINK</button>
-        <div id="fbOutput"></div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Masukkan password" required>
       </div>
-    </div>
-
-    <!-- CARD 3: l.wl.co RAW (TANPA ENCODE) -->
-    <div class="card">
-      <h2>l.wl.co Raw Debug</h2>
-      <textarea id="inputWl" placeholder="Tempel link yang sama, hasilnya tanpa %3A %2F"></textarea>
-      <button class="btn-wl" onclick="convertToWlRaw()">CONVERT KE l.wl.co (RAW)</button>
-      <div class="result" id="wlResult">
-        <button class="btn-copy" onclick="copyWlRaw()">COPY SEMUA l.wl.co</button>
-        <div id="wlOutput"></div>
-      </div>
-    </div>
-
+      <button type="submit" class="btn-login">LOGIN</button>
+      <div id="loginError" class="error">Username atau password salah!</div>
+    </form>
   </div>
 
-  <footer>Made with love • Selalu update thumbnail FB tanpa ribet</footer>
+  <!-- MAIN APP PAGE -->
+  <div id="mainPage" style="display: none; width: 100%;">
+    <button class="logout-btn" onclick="logout()">LOGOUT</button>
+    
+    <h1>Instalive Tools</h1>
+    <p class="subtitle">Generate 100 random • Facebook l.php bypass • l.wl.co raw debug (no encode)</p>
+
+    <div class="container">
+      <!-- CARD 1: RANDOM -->
+      <div class="card">
+        <h2>Generate 100 Random</h2>
+        <button class="btn-generate" onclick="generateRandom()">GENERATE 100 LINK</button>
+        <div class="result" id="randomResult">
+          <button class="btn-copy" onclick="copyRandom()">COPY SEMUA LINK</button>
+          <div id="randomOutput"></div>
+        </div>
+      </div>
+
+      <!-- CARD 2: FACEBOOK -->
+      <div class="card">
+        <h2>Facebook l.php Bypass</h2>
+        <textarea id="inputLinks" placeholder="Tempel link Instalive di sini..."></textarea>
+        <button class="btn-convert" onclick="convertToFB()">CONVERT KE FACEBOOK</button>
+        <div class="result" id="fbResult">
+          <button class="btn-copy" onclick="copyFB()">COPY SEMUA FB LINK</button>
+          <div id="fbOutput"></div>
+        </div>
+      </div>
+
+      <!-- CARD 3: l.wl.co RAW (TANPA ENCODE) -->
+      <div class="card">
+        <h2>l.wl.co Raw Debug</h2>
+        <textarea id="inputWl" placeholder="Tempel link yang sama, hasilnya tanpa %3A %2F"></textarea>
+        <button class="btn-wl" onclick="convertToWlRaw()">CONVERT KE l.wl.co (RAW)</button>
+        <div class="result" id="wlResult">
+          <button class="btn-copy" onclick="copyWlRaw()">COPY SEMUA l.wl.co</button>
+          <div id="wlOutput"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Made with love • Selalu update thumbnail FB tanpa ribet</footer>
+  </div>
 
   <script>
-    // Daftar URL dasar yang akan dipilih secara acak
-    const BASE_URLS = [
-     "https://kramat11.github.io/landing-kahf-1766161652367/"
-    ];
-
-    // Disable right click, copy, paste, and developer tools
+    // Login credentials
+    const USERNAME = 'kramat';
+    const PASSWORD = 'kramat113';
+    
+    // Check if user is already logged in
     document.addEventListener('DOMContentLoaded', () => {
-      // Nonaktifkan klik kanan, kecuali pada textarea
+      if (sessionStorage.getItem('isLoggedIn') === 'true') {
+        showMainPage();
+      } else {
+        showLoginPage();
+      }
+      
+      // Disable right click, copy, paste, and developer tools
       document.addEventListener('contextmenu', e => {
-        if (e.target.tagName === 'TEXTAREA') {
-          return; // Izinkan klik kanan di textarea
+        if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+          return; // Izinkan klik kanan di input
         }
         e.preventDefault();
         return false;
       });
 
-      // Nonaktifkan copy, cut, paste, kecuali pada textarea
       ['copy', 'cut', 'paste'].forEach(event => {
         document.addEventListener(event, e => {
-          if (e.target.tagName === 'TEXTAREA') {
-            return; // Izinkan copy/paste di textarea
+          if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+            return; // Izinkan copy/paste di input
           }
           e.preventDefault();
           return false;
         });
       });
 
-      // Nonaktifkan shortcut developer tools, kecuali saat fokus di textarea
       document.addEventListener('keydown', e => {
-        // Izinkan semua shortcut jika fokus ada di textarea
-        if (e.target.tagName === 'TEXTAREA') {
+        if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
           return;
         }
 
-        // F12
         if (e.key === 'F12') {
           e.preventDefault();
           return false;
         }
-        // Ctrl+Shift+I (Chrome/Edge/Firefox DevTools)
         if (e.ctrlKey && e.shiftKey && e.key === 'I') {
           e.preventDefault();
           return false;
         }
-        // Ctrl+Shift+J (Chrome Console)
         if (e.ctrlKey && e.shiftKey && e.key === 'J') {
           e.preventDefault();
           return false;
         }
-        // Ctrl+U (View Source)
         if (e.ctrlKey && e.key === 'u') {
           e.preventDefault();
           return false;
         }
       });
     });
+    
+    // Login form submission
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      if (username === USERNAME && password === PASSWORD) {
+        sessionStorage.setItem('isLoggedIn', 'true');
+        showMainPage();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('loginError').style.display = 'none';
+        }, 3000);
+      }
+    });
+    
+    // Logout function
+    function logout() {
+      sessionStorage.removeItem('isLoggedIn');
+      showLoginPage();
+    }
+    
+    // Show login page
+    function showLoginPage() {
+      document.getElementById('loginPage').style.display = 'block';
+      document.getElementById('mainPage').style.display = 'none';
+    }
+    
+    // Show main page
+    function showMainPage() {
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('mainPage').style.display = 'block';
+      
+      // Add the main page styles dynamically
+      const mainStyles = document.createElement('style');
+      mainStyles.textContent = `
+        .container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+          gap: 32px;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+        .card {
+          background: var(--card);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 28px;
+          padding: 36px;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+          animation: cardIn 0.8s ease forwards;
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes cardIn {
+          to { opacity:1; transform:translateY(0); }
+        }
+        .card::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; height: 5px;
+          background: linear-gradient(90deg, var(--pink), var(--cyan));
+          border-radius: 28px 28px 0 0;
+        }
+        .card:hover {
+          transform: translateY(-16px);
+          box-shadow: 0 25px 60px rgba(255,45,146,0.35);
+        }
+        h2 {
+          font-size: 1.9rem;
+          text-align:center;
+          margin-bottom: 28px;
+          font-weight: 900;
+          background: linear-gradient(90deg, var(--pink), var(--cyan));
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+        .card:nth-child(3) h2 {
+          background: linear-gradient(90deg, var(--orange), var(--purple));
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+        .btn-generate {
+          background: linear-gradient(135deg, var(--pink), #ff509d);
+          color: white;
+          box-shadow: 0 10px 30px rgba(255,45,146,0.5);
+        }
+        .btn-convert {
+          background: linear-gradient(135deg, #1877f2, #00c8ff);
+          color: white;
+          box-shadow: 0 10px 30px rgba(24,119,242,0.5);
+        }
+        .btn-wl {
+          background: linear-gradient(135deg, var(--orange), var(--purple));
+          color: white;
+          box-shadow: 0 10px 30px rgba(157,0,255,0.5);
+        }
+        .btn-copy {
+          background: linear-gradient(135deg, var(--cyan), #00ff9d);
+          color: #000;
+          font-weight: 900;
+        }
+        textarea {
+          width: 100%;
+          height: 300px;
+          background: rgba(0,0,0,0.5);
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 18px;
+          padding: 20px;
+          color: #fff;
+          font-size: 15px;
+          resize: vertical;
+          margin: 16px 0;
+          backdrop-filter: blur(12px);
+          transition: border 0.3s;
+          -webkit-user-select: text; /* Safari */
+          -moz-user-select: text; /* Firefox */
+          -ms-user-select: text; /* IE10+/Edge */
+          user-select: text; /* Standard */
+        }
+        textarea:focus {
+          outline: none;
+          border: 0 0 0 3px rgba(255,45,146,0.3);
+          border-color: var(--pink);
+        }
+        .result {
+          margin-top: 24px;
+          background: var(--glass);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 18px;
+          padding: 24px;
+          max-height: 460px;
+          overflow-y: auto;
+          display: none;
+        }
+        .result a {
+          color: var(--cyan);
+          word-break: break-all;
+          display: block;
+          margin: 10px 0;
+          padding: 8px;
+          border-radius: 8px;
+          transition: 0.3s;
+        }
+        .result a:hover {
+          background: rgba(0,255,157,0.1);
+          color: #fff;
+          padding-left: 16px;
+        }
+        footer {
+          text-align:center;
+          margin-top: 100px;
+          opacity: 0.6;
+          font-size: 15px;
+          font-weight: 500;
+        }
+      `;
+      document.head.appendChild(mainStyles);
+    }
+
+    // Daftar URL dasar yang akan dipilih secara acak
+    const BASE_URLS = [
+     "https://kramat11.github.io/landing-kahf-1766161652367/"
+    ];
 
     function rand8() {
       const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -340,10 +494,8 @@
       window.randomLinks = "";
 
       for (let i = 0; i < 100; i++) {
-        // Pilih satu URL secara acak dari array BASE_URLS
         const randomIndex = Math.floor(Math.random() * BASE_URLS.length);
         const chosenBase = BASE_URLS[randomIndex];
-
         const kode = rand8();
         const link = `${chosenBase}?${kode}`;
         window.randomLinks += link + "\n";
