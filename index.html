@@ -123,7 +123,7 @@
       padding: 20px 10px;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       transition: background var(--transition-normal), color var(--transition-normal);
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -206,21 +206,13 @@
     }
     
     @keyframes batikFlow {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
     
     @keyframes batikFlowReverse {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-      100% {
-        transform: translate(50%, 50%) rotate(-360deg);
-      }
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(50%, 50%) rotate(-360deg); }
     }
     
     /* Animated gradient overlay */
@@ -300,111 +292,22 @@
       animation: floatUp 15s infinite;
     }
     
-    .particle:nth-child(1) {
-      left: 10%;
-      width: 10px;
-      height: 10px;
-      background: var(--primary);
-      animation-delay: 0s;
-      animation-duration: 15s;
-    }
-    
-    .particle:nth-child(2) {
-      left: 20%;
-      width: 15px;
-      height: 15px;
-      background: var(--secondary);
-      animation-delay: 2s;
-      animation-duration: 20s;
-    }
-    
-    .particle:nth-child(3) {
-      left: 30%;
-      width: 5px;
-      height: 5px;
-      background: var(--accent);
-      animation-delay: 4s;
-      animation-duration: 25s;
-    }
-    
-    .particle:nth-child(4) {
-      left: 40%;
-      width: 8px;
-      height: 8px;
-      background: var(--success);
-      animation-delay: 0s;
-      animation-duration: 18s;
-    }
-    
-    .particle:nth-child(5) {
-      left: 50%;
-      width: 12px;
-      height: 12px;
-      background: var(--warning);
-      animation-delay: 2s;
-      animation-duration: 22s;
-    }
-    
-    .particle:nth-child(6) {
-      left: 60%;
-      width: 6px;
-      height: 6px;
-      background: var(--primary);
-      animation-delay: 3s;
-      animation-duration: 17s;
-    }
-    
-    .particle:nth-child(7) {
-      left: 70%;
-      width: 10px;
-      height: 10px;
-      background: var(--secondary);
-      animation-delay: 7s;
-      animation-duration: 19s;
-    }
-    
-    .particle:nth-child(8) {
-      left: 80%;
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      animation-delay: 1s;
-      animation-duration: 21s;
-    }
-    
-    .particle:nth-child(9) {
-      left: 90%;
-      width: 7px;
-      height: 7px;
-      background: var(--success);
-      animation-delay: 5s;
-      animation-duration: 16s;
-    }
-    
-    .particle:nth-child(10) {
-      left: 95%;
-      width: 9px;
-      height: 9px;
-      background: var(--warning);
-      animation-delay: 8s;
-      animation-duration: 23s;
-    }
+    .particle:nth-child(1) { left: 10%; width: 10px; height: 10px; background: var(--primary); animation-delay: 0s; animation-duration: 15s; }
+    .particle:nth-child(2) { left: 20%; width: 15px; height: 15px; background: var(--secondary); animation-delay: 2s; animation-duration: 20s; }
+    .particle:nth-child(3) { left: 30%; width: 5px; height: 5px; background: var(--accent); animation-delay: 4s; animation-duration: 25s; }
+    .particle:nth-child(4) { left: 40%; width: 8px; height: 8px; background: var(--success); animation-delay: 0s; animation-duration: 18s; }
+    .particle:nth-child(5) { left: 50%; width: 12px; height: 12px; background: var(--warning); animation-delay: 2s; animation-duration: 22s; }
+    .particle:nth-child(6) { left: 60%; width: 6px; height: 6px; background: var(--primary); animation-delay: 3s; animation-duration: 17s; }
+    .particle:nth-child(7) { left: 70%; width: 10px; height: 10px; background: var(--secondary); animation-delay: 7s; animation-duration: 19s; }
+    .particle:nth-child(8) { left: 80%; width: 8px; height: 8px; background: var(--accent); animation-delay: 1s; animation-duration: 21s; }
+    .particle:nth-child(9) { left: 90%; width: 7px; height: 7px; background: var(--success); animation-delay: 5s; animation-duration: 16s; }
+    .particle:nth-child(10) { left: 95%; width: 9px; height: 9px; background: var(--warning); animation-delay: 8s; animation-duration: 23s; }
     
     @keyframes floatUp {
-      0% {
-        opacity: 0;
-        transform: translateY(100vh) scale(0);
-      }
-      10% {
-        opacity: 0.4;
-      }
-      90% {
-        opacity: 0.2;
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-100vh) scale(1.5);
-      }
+      0% { opacity: 0; transform: translateY(100vh) scale(0); }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.2; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(1.5); }
     }
     
     input, textarea {
@@ -501,19 +404,13 @@
     }
     
     @keyframes cardIn {
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     .login-container::before {
       content: '';
       position: absolute;
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      height: 3px;
+      top: 0; left: 0; right: 0; height: 3px;
       background: var(--gradient-primary);
       border-radius: 16px 16px 0 0;
     }
@@ -603,10 +500,8 @@
     button::after {
       content: '';
       position: absolute;
-      top: -50%; 
-      left: -50%;
-      width: 200%; 
-      height: 200%;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
       background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
       transform: rotate(30deg);
       transition: all 0.6s;
@@ -637,7 +532,7 @@
     
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: 1fr;
       gap: 18px;
       max-width: 900px;
       margin: 0 auto;
@@ -668,10 +563,7 @@
     .card::before {
       content: '';
       position: absolute;
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      height: 3px;
+      top: 0; left: 0; right: 0; height: 3px;
       background: var(--gradient-primary);
       border-radius: 16px 16px 0 0;
     }
@@ -731,44 +623,41 @@
       text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
     }
     
-    .btn-generate {
-      background: var(--gradient-primary);
-      color: white;
-      box-shadow: var(--shadow-md);
-    }
+    .btn-generate { background: var(--gradient-primary); color: white; box-shadow: var(--shadow-md); }
+    .btn-convert { background: var(--gradient-secondary); color: white; box-shadow: var(--shadow-md); }
+    .btn-wl { background: var(--gradient-accent); color: white; box-shadow: var(--shadow-md); }
+    .btn-copy { background: var(--gradient-success); color: white; font-weight: 700; box-shadow: var(--shadow-sm); font-size: 0.75rem; padding: 8px 12px; }
     
-    .btn-convert {
-      background: var(--gradient-secondary);
-      color: white;
-      box-shadow: var(--shadow-md);
+    .side-by-side-container {
+      display: flex;
+      gap: 15px;
+      height: 350px;
     }
-    
-    .btn-wl {
-      background: var(--gradient-accent);
-      color: white;
-      box-shadow: var(--shadow-md);
+
+    .input-panel {
+      flex: 0 0 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    
-    .btn-copy {
-      background: var(--gradient-success);
-      color: white;
-      font-weight: 700;
-      box-shadow: var(--shadow-sm);
-      font-size: 0.75rem;
-      padding: 8px 12px;
+
+    .result-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     
     textarea {
       width: 100%;
-      height: 140px;
+      height: 100%;
       background: var(--bg-tertiary);
       border: 1.5px solid var(--border-light);
       border-radius: 10px;
       padding: 12px;
       color: var(--text-primary);
       font-size: 12px;
-      resize: vertical;
-      margin: 12px 0;
+      resize: none;
+      margin: 0;
       backdrop-filter: blur(12px);
       transition: all var(--transition-normal);
       font-family: 'Inter', sans-serif;
@@ -782,35 +671,22 @@
     }
     
     .result {
-      margin-top: 16px;
+      margin-top: 0;
       background: var(--bg-glass);
       border: 1px solid var(--border-medium);
       border-radius: 10px;
       padding: 14px;
-      max-height: 250px;
+      flex-grow: 1;
       overflow-y: auto;
-      display: none;
       backdrop-filter: blur(10px);
       transition: all var(--transition-normal);
+      display: none;
     }
     
-    .result::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    .result::-webkit-scrollbar-track {
-      background: var(--bg-tertiary);
-      border-radius: 3px;
-    }
-    
-    .result::-webkit-scrollbar-thumb {
-      background: var(--border-dark);
-      border-radius: 3px;
-    }
-    
-    .result::-webkit-scrollbar-thumb:hover {
-      background: var(--primary);
-    }
+    .result::-webkit-scrollbar { width: 6px; }
+    .result::-webkit-scrollbar-track { background: var(--bg-tertiary); border-radius: 3px; }
+    .result::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 3px; }
+    .result::-webkit-scrollbar-thumb:hover { background: var(--primary); }
     
     .result a {
       color: var(--primary);
@@ -820,7 +696,7 @@
       padding: 6px 8px;
       border-radius: 6px;
       transition: all var(--transition-normal);
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       text-decoration: none;
     }
     
@@ -829,6 +705,14 @@
       color: var(--primary-dark);
       padding-left: 12px;
       transform: translateX(2px);
+    }
+    
+    /* Style for the large number input */
+    .large-number-input {
+      padding: 15px 14px; /* Increased padding */
+      font-size: 1.2rem; /* Larger font size */
+      font-weight: 600;
+      text-align: center;
     }
     
     footer {
@@ -847,6 +731,7 @@
       .container {
         grid-template-columns: 1fr;
         gap: 15px;
+        max-width: 100%;
       }
       
       .login-container {
@@ -861,6 +746,20 @@
       .header-controls {
         top: 10px;
         right: 10px;
+      }
+      
+      .side-by-side-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .input-panel {
+        flex: 1;
+        width: 100%;
+      }
+      
+      .result-panel {
+        min-height: 250px;
       }
     }
   </style>
@@ -917,38 +816,60 @@
   <!-- MAIN APP PAGE -->
   <div id="mainPage" style="display: none; width: 100%;">
     <h1 style="text-align: center; margin-bottom: 10px;">Instalive Tools</h1>
-    <p class="subtitle" style="margin-bottom: 30px;">Generate 100 random • Facebook l.php bypass • l.wl.co raw debug (no encode)</p>
+    <p class="subtitle" style="margin-bottom: 30px;">Generate random links • Facebook l.php bypass • l.wl.co raw debug (no encode)</p>
 
     <div class="container">
       <!-- CARD 1: RANDOM -->
       <div class="card">
-        <h2>Generate 100 Random</h2>
-        <button class="btn-generate" onclick="generateRandom()">GENERATE 100 LINK</button>
-        <div class="result" id="randomResult">
-          <button class="btn-copy" onclick="copyRandom()">COPY SEMUA LINK</button>
-          <div id="randomOutput"></div>
+        <h2>Generate Random Links</h2>
+        <div class="side-by-side-container">
+          <div class="input-panel">
+            <!-- Input for number of links, now larger and on its own line -->
+            <input type="number" id="linkCount" min="1" max="1000" value="100" placeholder="Jumlah link" class="large-number-input">
+            <!-- Generate button -->
+            <button class="btn-generate" onclick="generateRandom()">GENERATE</button>
+            <!-- Copy button -->
+            <button class="btn-copy" onclick="copyRandom()" id="copyRandomBtn" style="display: none;">COPY SEMUA LINK</button>
+          </div>
+          <div class="result-panel">
+            <div class="result" id="randomResult">
+              <div id="randomOutput"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- CARD 2: FACEBOOK -->
       <div class="card">
         <h2>Facebook l.php Bypass</h2>
-        <textarea id="inputLinks" placeholder="Tempel link Instalive di sini..."></textarea>
-        <button class="btn-convert" onclick="convertToFB()">CONVERT KE FACEBOOK</button>
-        <div class="result" id="fbResult">
-          <button class="btn-copy" onclick="copyFB()">COPY SEMUA FB LINK</button>
-          <div id="fbOutput"></div>
+        <div class="side-by-side-container">
+          <div class="input-panel">
+            <textarea id="inputLinks" placeholder="Tempel link Instalive di sini..."></textarea>
+            <button class="btn-convert" onclick="convertToFB()">CONVERT KE FACEBOOK</button>
+            <button class="btn-copy" onclick="copyFB()" id="copyFbBtn" style="display: none;">COPY SEMUA FB LINK</button>
+          </div>
+          <div class="result-panel">
+            <div class="result" id="fbResult">
+              <div id="fbOutput"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- CARD 3: l.wl.co RAW (TANPA ENCODE) -->
       <div class="card">
         <h2>l.wl.co Raw Debug</h2>
-        <textarea id="inputWl" placeholder="Tempel link yang sama, hasilnya tanpa %3A %2F"></textarea>
-        <button class="btn-wl" onclick="convertToWlRaw()">CONVERT KE l.wl.co (RAW)</button>
-        <div class="result" id="wlResult">
-          <button class="btn-copy" onclick="copyWlRaw()">COPY SEMUA l.wl.co</button>
-          <div id="wlOutput"></div>
+        <div class="side-by-side-container">
+          <div class="input-panel">
+            <textarea id="inputWl" placeholder="Tempel link yang sama, hasilnya tanpa %3A %2F"></textarea>
+            <button class="btn-wl" onclick="convertToWlRaw()">CONVERT KE l.wl.co (RAW)</button>
+            <button class="btn-copy" onclick="copyWlRaw()" id="copyWlBtn" style="display: none;">COPY SEMUA l.wl.co</button>
+          </div>
+          <div class="result-panel">
+            <div class="result" id="wlResult">
+              <div id="wlOutput"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1088,11 +1009,17 @@
     }
 
     function generateRandom() {
+      const countInput = document.getElementById("linkCount");
+      const count = parseInt(countInput.value) || 100;
+      
+      if (count < 1) { showNotification("Jumlah link minimal 1!"); return; }
+      if (count > 1000) { showNotification("Jumlah link maksimal 1000!"); return; }
+      
       const out = document.getElementById("randomOutput");
       out.innerHTML = "";
       window.randomLinks = "";
 
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < count; i++) {
         const randomIndex = Math.floor(Math.random() * BASE_URLS.length);
         const chosenBase = BASE_URLS[randomIndex];
         const kode = rand8();
@@ -1100,31 +1027,38 @@
         window.randomLinks += link + "\n";
         out.innerHTML += `<a href="${link}" target="_blank">${link}</a>`;
       }
+      
+      // Show result and copy button
       document.getElementById("randomResult").style.display = "block";
+      document.getElementById("copyRandomBtn").style.display = "block";
+      
+      showNotification(`Berhasil generate ${count} link!`);
     }
 
     function copyRandom() {
       navigator.clipboard.writeText(window.randomLinks);
-      showNotification("100 link berhasil dicopy!");
+      showNotification("Link berhasil dicopy!");
     }
 
     function convertToFB() {
       const text = document.getElementById("inputLinks").value.trim();
-      if (!text) {
-        showNotification("Paste link dulu!");
-        return;
-      }
+      if (!text) { showNotification("Paste link dulu!"); return; }
+      
       const links = text.split("\n").map(l => l.trim()).filter(Boolean);
       const out = document.getElementById("fbOutput");
       out.innerHTML = "";
       window.fbLinks = "";
+      
       links.forEach(link => {
         const encoded = encodeURIComponent(link);
         const fbLink = `https://web.facebook.com/l.php?u=${encoded}`;
         window.fbLinks += fbLink + "\n";
         out.innerHTML += `<a href="${fbLink}" target="_blank">${fbLink}</a>`;
       });
+      
+      // Show result and copy button
       document.getElementById("fbResult").style.display = "block";
+      document.getElementById("copyFbBtn").style.display = "block";
     }
 
     function copyFB() {
@@ -1134,20 +1068,22 @@
 
     function convertToWlRaw() {
       const text = document.getElementById("inputWl").value.trim();
-      if (!text) {
-        showNotification("Tempel link dulu!");
-        return;
-      }
+      if (!text) { showNotification("Tempel link dulu!"); return; }
+      
       const links = text.split("\n").map(l => l.trim()).filter(Boolean);
       const out = document.getElementById("wlOutput");
       out.innerHTML = "";
       window.wlRawLinks = "";
+      
       links.forEach(link => {
         const wlLink = "https://l.wl.co/l?u=" + link;
         window.wlRawLinks += wlLink + "\n";
         out.innerHTML += `<a href="${wlLink}" target="_blank">${wlLink}</a>`;
       });
+      
+      // Show result and copy button
       document.getElementById("wlResult").style.display = "block";
+      document.getElementById("copyWlBtn").style.display = "block";
     }
 
     function copyWlRaw() {
@@ -1186,24 +1122,12 @@
     const style = document.createElement('style');
     style.textContent = `
       @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translate(-50%, -20px);
-        }
-        to {
-          opacity: 1;
-          transform: translate(-50%, 0);
-        }
+        from { opacity: 0; transform: translate(-50%, -20px); }
+        to { opacity: 1; transform: translate(-50%, 0); }
       }
       @keyframes slideUp {
-        from {
-          opacity: 1;
-          transform: translate(-50%, 0);
-        }
-        to {
-          opacity: 0;
-          transform: translate(-50%, -20px);
-        }
+        from { opacity: 1; transform: translate(-50%, 0); }
+        to { opacity: 0; transform: translate(-50%, -20px); }
       }
     `;
     document.head.appendChild(style);
