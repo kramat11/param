@@ -47,6 +47,12 @@
       --gradient-success: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
       --gradient-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
       
+      /* Batik Colors */
+      --batik-primary: #1e40af;
+      --batik-secondary: #3b82f6;
+      --batik-accent: #60a5fa;
+      --batik-dark: #1e3a8a;
+      
       /* Transitions */
       --transition-fast: 150ms ease;
       --transition-normal: 300ms ease;
@@ -92,6 +98,12 @@
       --gradient-accent: linear-gradient(135deg, #fbbf24 0%, #f87171 100%);
       --gradient-success: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
       --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      
+      /* Batik Colors Dark */
+      --batik-primary: #3730a3;
+      --batik-secondary: #4f46e5;
+      --batik-accent: #6366f1;
+      --batik-dark: #312e81;
     }
     
     * { 
@@ -120,8 +132,124 @@
       position: relative;
     }
     
-    /* Animated stars background */
+    /* Batik Megamendung Pattern Background */
+    .batik-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      opacity: 0.08;
+      overflow: hidden;
+    }
+    
+    .batik-pattern {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        /* Large cloud shapes */
+        radial-gradient(ellipse at 20% 30%, var(--batik-primary) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 30%, var(--batik-secondary) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 60%, var(--batik-accent) 0%, transparent 45%),
+        radial-gradient(ellipse at 30% 80%, var(--batik-dark) 0%, transparent 35%),
+        radial-gradient(ellipse at 70% 80%, var(--batik-primary) 0%, transparent 35%),
+        
+        /* Medium cloud shapes */
+        radial-gradient(ellipse at 15% 15%, var(--batik-secondary) 0%, transparent 30%),
+        radial-gradient(ellipse at 85% 15%, var(--batik-accent) 0%, transparent 30%),
+        radial-gradient(ellipse at 15% 85%, var(--batik-dark) 0%, transparent 30%),
+        radial-gradient(ellipse at 85% 85%, var(--batik-primary) 0%, transparent 30%),
+        
+        /* Small cloud shapes */
+        radial-gradient(ellipse at 40% 20%, var(--batik-accent) 0%, transparent 25%),
+        radial-gradient(ellipse at 60% 20%, var(--batik-dark) 0%, transparent 25%),
+        radial-gradient(ellipse at 40% 70%, var(--batik-primary) 0%, transparent 25%),
+        radial-gradient(ellipse at 60% 70%, var(--batik-secondary) 0%, transparent 25%),
+        
+        /* Detail patterns */
+        radial-gradient(circle at 25% 40%, var(--batik-accent) 0%, transparent 15%),
+        radial-gradient(circle at 75% 40%, var(--batik-dark) 0%, transparent 15%),
+        radial-gradient(circle at 50% 25%, var(--batik-primary) 0%, transparent 15%),
+        radial-gradient(circle at 50% 75%, var(--batik-secondary) 0%, transparent 15%);
+      
+      background-size: 300px 300px, 300px 300px, 300px 300px, 300px 300px, 300px 300px,
+                       150px 150px, 150px 150px, 150px 150px, 150px 150px,
+                       100px 100px, 100px 100px, 100px 100px, 100px 100px,
+                       50px 50px, 50px 50px, 50px 50px, 50px 50px;
+      
+      animation: batikFlow 60s linear infinite;
+    }
+    
+    .batik-pattern-2 {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        /* Overlapping cloud shapes for depth */
+        radial-gradient(ellipse at 35% 25%, var(--batik-accent) 0%, transparent 35%),
+        radial-gradient(ellipse at 65% 25%, var(--batik-dark) 0%, transparent 35%),
+        radial-gradient(ellipse at 35% 75%, var(--batik-primary) 0%, transparent 35%),
+        radial-gradient(ellipse at 65% 75%, var(--batik-secondary) 0%, transparent 35%),
+        
+        /* Additional detail clouds */
+        radial-gradient(ellipse at 20% 50%, var(--batik-secondary) 0%, transparent 30%),
+        radial-gradient(ellipse at 80% 50%, var(--batik-accent) 0%, transparent 30%),
+        radial-gradient(ellipse at 50% 50%, var(--batik-dark) 0%, transparent 40%);
+      
+      background-size: 250px 250px, 250px 250px, 250px 250px, 250px 250px,
+                       200px 200px, 200px 200px, 300px 300px;
+      
+      animation: batikFlowReverse 80s linear infinite;
+      opacity: 0.6;
+    }
+    
+    @keyframes batikFlow {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+    
+    @keyframes batikFlowReverse {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(50%, 50%) rotate(-360deg);
+      }
+    }
+    
+    /* Animated gradient overlay */
     body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, 
+        rgba(99, 102, 241, 0.05) 0%, 
+        rgba(139, 92, 246, 0.05) 25%, 
+        rgba(236, 72, 153, 0.05) 50%, 
+        rgba(59, 130, 246, 0.05) 75%, 
+        rgba(99, 102, 241, 0.05) 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      z-index: -2;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* Animated stars background */
+    body::after {
       content: '';
       position: fixed;
       top: 0;
@@ -137,19 +265,146 @@
         radial-gradient(1px 1px at 110px 120px, white, transparent);
       background-repeat: repeat;
       background-size: 200px 200px;
-      opacity: 0.3;
+      opacity: 0.2;
       animation: stars 120s linear infinite;
       pointer-events: none;
-      z-index: 0;
+      z-index: -1;
     }
     
-    [data-theme="dark"] body::before {
-      opacity: 0.5;
+    [data-theme="dark"] body::after {
+      opacity: 0.4;
     }
     
     @keyframes stars {
       from { transform: translateY(0); }
       to { transform: translateY(-200px); }
+    }
+    
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .particle {
+      position: absolute;
+      display: block;
+      pointer-events: none;
+      opacity: 0;
+      animation: floatUp 15s infinite;
+    }
+    
+    .particle:nth-child(1) {
+      left: 10%;
+      width: 10px;
+      height: 10px;
+      background: var(--primary);
+      animation-delay: 0s;
+      animation-duration: 15s;
+    }
+    
+    .particle:nth-child(2) {
+      left: 20%;
+      width: 15px;
+      height: 15px;
+      background: var(--secondary);
+      animation-delay: 2s;
+      animation-duration: 20s;
+    }
+    
+    .particle:nth-child(3) {
+      left: 30%;
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      animation-delay: 4s;
+      animation-duration: 25s;
+    }
+    
+    .particle:nth-child(4) {
+      left: 40%;
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      animation-delay: 0s;
+      animation-duration: 18s;
+    }
+    
+    .particle:nth-child(5) {
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      background: var(--warning);
+      animation-delay: 2s;
+      animation-duration: 22s;
+    }
+    
+    .particle:nth-child(6) {
+      left: 60%;
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      animation-delay: 3s;
+      animation-duration: 17s;
+    }
+    
+    .particle:nth-child(7) {
+      left: 70%;
+      width: 10px;
+      height: 10px;
+      background: var(--secondary);
+      animation-delay: 7s;
+      animation-duration: 19s;
+    }
+    
+    .particle:nth-child(8) {
+      left: 80%;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      animation-delay: 1s;
+      animation-duration: 21s;
+    }
+    
+    .particle:nth-child(9) {
+      left: 90%;
+      width: 7px;
+      height: 7px;
+      background: var(--success);
+      animation-delay: 5s;
+      animation-duration: 16s;
+    }
+    
+    .particle:nth-child(10) {
+      left: 95%;
+      width: 9px;
+      height: 9px;
+      background: var(--warning);
+      animation-delay: 8s;
+      animation-duration: 23s;
+    }
+    
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0);
+      }
+      10% {
+        opacity: 0.4;
+      }
+      90% {
+        opacity: 0.2;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100vh) scale(1.5);
+      }
     }
     
     input, textarea {
@@ -421,6 +676,23 @@
       border-radius: 16px 16px 0 0;
     }
     
+    .card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+      pointer-events: none;
+    }
+    
+    .card:hover::after {
+      opacity: 1;
+    }
+    
     .card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-lg);
@@ -594,6 +866,26 @@
   </style>
 </head>
 <body>
+  <!-- Batik Megamendung Background -->
+  <div class="batik-background">
+    <div class="batik-pattern"></div>
+    <div class="batik-pattern-2"></div>
+  </div>
+
+  <!-- Animated Particles Background -->
+  <div class="particles">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </div>
+
   <!-- Header Controls -->
   <div class="header-controls">
     <button class="logout-btn" onclick="logout()" style="display: none;" id="logoutBtn">LOGOUT</button>
