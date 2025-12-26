@@ -530,23 +530,34 @@
       transition: all var(--transition-normal);
     }
     
-    .container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
+    /* Main Page Container */
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
       max-width: 900px;
       margin: 0 auto;
-      width: 100%;
       z-index: 1;
       position: relative;
     }
     
-    .card {
+    /* Tool Cards Container */
+    .tools-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    
+    /* Tool Card Styles */
+    .tool-card {
       background: var(--bg-card);
       backdrop-filter: blur(20px);
       border: 1px solid var(--border-medium);
       border-radius: 16px;
-      padding: 20px;
+      padding: 25px;
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow-md);
@@ -554,21 +565,31 @@
       opacity: 0;
       transform: translateY(40px);
       transition: all var(--transition-normal);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 200px;
+      justify-content: center;
     }
     
-    .card:nth-child(1) { animation-delay: 0.1s; }
-    .card:nth-child(2) { animation-delay: 0.2s; }
-    .card:nth-child(3) { animation-delay: 0.3s; }
+    .tool-card:nth-child(1) { animation-delay: 0.1s; }
+    .tool-card:nth-child(2) { animation-delay: 0.2s; }
+    .tool-card:nth-child(3) { animation-delay: 0.3s; }
     
-    .card::before {
+    .tool-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; height: 3px;
-      background: var(--gradient-primary);
       border-radius: 16px 16px 0 0;
     }
     
-    .card::after {
+    .tool-card:nth-child(1)::before { background: var(--gradient-primary); }
+    .tool-card:nth-child(2)::before { background: var(--gradient-secondary); }
+    .tool-card:nth-child(3)::before { background: var(--gradient-accent); }
+    
+    .tool-card::after {
       content: '';
       position: absolute;
       top: -50%;
@@ -581,52 +602,147 @@
       pointer-events: none;
     }
     
-    .card:hover::after {
+    .tool-card:hover::after {
       opacity: 1;
     }
     
-    .card:hover {
+    .tool-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-lg);
     }
     
-    h2 {
-      font-size: 1.1rem;
-      text-align: center;
-      margin-bottom: 18px;
-      font-weight: 800;
-      line-height: 1.3;
-      padding: 0 5px;
+    .tool-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
     }
     
-    .card:nth-child(1) h2 {
+    .tool-card:nth-child(1) .tool-icon { color: var(--primary); }
+    .tool-card:nth-child(2) .tool-icon { color: var(--secondary); }
+    .tool-card:nth-child(3) .tool-icon { color: var(--accent); }
+    
+    .tool-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    
+    .tool-card:nth-child(1) .tool-title {
       background: var(--gradient-primary);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
     }
     
-    .card:nth-child(2) h2 {
+    .tool-card:nth-child(2) .tool-title {
       background: var(--gradient-secondary);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
     }
     
-    .card:nth-child(3) h2 {
+    .tool-card:nth-child(3) .tool-title {
       background: var(--gradient-accent);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
     }
     
-    .btn-generate { background: var(--gradient-primary); color: white; box-shadow: var(--shadow-md); }
-    .btn-convert { background: var(--gradient-secondary); color: white; box-shadow: var(--shadow-md); }
-    .btn-wl { background: var(--gradient-accent); color: white; box-shadow: var(--shadow-md); }
-    .btn-copy { background: var(--gradient-success); color: white; font-weight: 700; box-shadow: var(--shadow-sm); font-size: 0.75rem; padding: 8px 12px; }
+    .tool-description {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
+    
+    .tool-button {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      width: auto;
+      margin: 0;
+    }
+    
+    .tool-card:nth-child(1) .tool-button { background: var(--gradient-primary); color: white; }
+    .tool-card:nth-child(2) .tool-button { background: var(--gradient-secondary); color: white; }
+    .tool-card:nth-child(3) .tool-button { background: var(--gradient-accent); color: white; }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .modal-content {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-medium);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      margin: 5vh auto;
+      animation: slideIn 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+    
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      width: auto;
+      margin: 0;
+      padding: 0;
+      height: auto;
+    }
+    
+    .modal-close:hover {
+      color: var(--danger);
+    }
+    
+    .modal-body {
+      flex-grow: 1;
+      overflow-y: auto;
+    }
     
     .side-by-side-container {
       display: flex;
@@ -728,10 +844,9 @@
     
     /* Responsive Design */
     @media (max-width: 768px) {
-      .container {
+      .tools-container {
         grid-template-columns: 1fr;
         gap: 15px;
-        max-width: 100%;
       }
       
       .login-container {
@@ -760,6 +875,11 @@
       
       .result-panel {
         min-height: 250px;
+      }
+      
+      .modal-content {
+        width: 95%;
+        margin: 2.5vh auto;
       }
     }
   </style>
@@ -815,13 +935,48 @@
 
   <!-- MAIN APP PAGE -->
   <div id="mainPage" style="display: none; width: 100%;">
-    <h1 style="text-align: center; margin-bottom: 10px;">Instalive Tools</h1>
-    <p class="subtitle" style="margin-bottom: 30px;">Generate random links • Facebook l.php bypass • l.wl.co raw debug (no encode)</p>
+    <div class="main-container">
+      <h1 style="text-align: center; margin-bottom: 10px;">Instalive Tools</h1>
+      <p class="subtitle" style="margin-bottom: 30px;">Generate random links • Facebook l.php bypass • l.wl.co raw debug (no encode)</p>
 
-    <div class="container">
-      <!-- CARD 1: RANDOM -->
-      <div class="card">
-        <h2>Generate Random Links</h2>
+      <div class="tools-container">
+        <!-- CARD 1: RANDOM -->
+        <div class="tool-card" onclick="openModal('randomModal')">
+          <div class="tool-icon">🔗</div>
+          <h3 class="tool-title">Generate Random Links</h3>
+          <p class="tool-description">Buat link acak dengan cepat dan mudah</p>
+          <button class="tool-button">BUKA</button>
+        </div>
+
+        <!-- CARD 2: FACEBOOK -->
+        <div class="tool-card" onclick="openModal('fbModal')">
+          <div class="tool-icon">📘</div>
+          <h3 class="tool-title">Facebook l.php Bypass</h3>
+          <p class="tool-description">Konversi link ke format Facebook l.php</p>
+          <button class="tool-button">BUKA</button>
+        </div>
+
+        <!-- CARD 3: l.wl.co RAW -->
+        <div class="tool-card" onclick="openModal('wlModal')">
+          <div class="tool-icon">🔧</div>
+          <h3 class="tool-title">l.wl.co Raw Debug</h3>
+          <p class="tool-description">Konversi link ke format l.wl.co tanpa encode</p>
+          <button class="tool-button">BUKA</button>
+        </div>
+      </div>
+
+      <footer>kramat since in 2025</footer>
+    </div>
+  </div>
+
+  <!-- Modal for Random Links -->
+  <div id="randomModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">Generate Random Links</h2>
+        <button class="modal-close" onclick="closeModal('randomModal')">&times;</button>
+      </div>
+      <div class="modal-body">
         <div class="side-by-side-container">
           <div class="input-panel">
             <!-- Input for number of links, now larger and on its own line -->
@@ -838,10 +993,17 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- CARD 2: FACEBOOK -->
-      <div class="card">
-        <h2>Facebook l.php Bypass</h2>
+  <!-- Modal for Facebook -->
+  <div id="fbModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" style="background: var(--gradient-secondary); -webkit-background-clip: text; background-clip: text; color: transparent;">Facebook l.php Bypass</h2>
+        <button class="modal-close" onclick="closeModal('fbModal')">&times;</button>
+      </div>
+      <div class="modal-body">
         <div class="side-by-side-container">
           <div class="input-panel">
             <textarea id="inputLinks" placeholder="Tempel link Instalive di sini..."></textarea>
@@ -855,10 +1017,17 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- CARD 3: l.wl.co RAW (TANPA ENCODE) -->
-      <div class="card">
-        <h2>l.wl.co Raw Debug</h2>
+  <!-- Modal for l.wl.co Raw -->
+  <div id="wlModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" style="background: var(--gradient-accent); -webkit-background-clip: text; background-clip: text; color: transparent;">l.wl.co Raw Debug</h2>
+        <button class="modal-close" onclick="closeModal('wlModal')">&times;</button>
+      </div>
+      <div class="modal-body">
         <div class="side-by-side-container">
           <div class="input-panel">
             <textarea id="inputWl" placeholder="Tempel link yang sama, hasilnya tanpa %3A %2F"></textarea>
@@ -873,11 +1042,28 @@
         </div>
       </div>
     </div>
-
-    <footer>kramat since in 2025</footer>
   </div>
 
   <script>
+    // Modal Functions
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      document.body.style.overflow = 'auto'; // Enable scrolling again
+    }
+    
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+    
     // Theme Management
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
