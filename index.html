@@ -875,6 +875,127 @@
       margin-top: 4px;
     }
     
+    /* Style for random offer selection */
+    .random-offer-container {
+      background: var(--bg-tertiary);
+      border: 1.5px solid var(--border-light);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .random-offer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    .random-offer-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+    }
+    
+    .random-offer-icon {
+      margin-right: 8px;
+      font-size: 1rem;
+    }
+    
+    .random-offer-toggle {
+      width: 44px;
+      height: 24px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      position: relative;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+    }
+    
+    .random-offer-toggle.active {
+      background: var(--gradient-accent);
+    }
+    
+    .random-offer-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: all var(--transition-normal);
+    }
+    
+    .random-offer-toggle.active::after {
+      left: 22px;
+    }
+    
+    .offer-checkboxes {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-normal);
+    }
+    
+    .offer-checkboxes.show {
+      max-height: 200px;
+    }
+    
+    .offer-checkbox-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      transition: all var(--transition-normal);
+    }
+    
+    .offer-checkbox-item:hover {
+      background: var(--bg-glass);
+    }
+    
+    .offer-checkbox-item input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    
+    .offer-checkbox-label {
+      font-size: 0.75rem;
+      color: var(--text-primary);
+      cursor: pointer;
+      flex: 1;
+    }
+    
+    /* Stats for random offers */
+    .offer-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .offer-stat {
+      text-align: center;
+      flex: 1;
+      min-width: 50px;
+    }
+    
+    .offer-stat-value {
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+    
     footer {
       text-align: center;
       margin-top: 40px;
@@ -1023,8 +1144,35 @@
       <div class="modal-body">
         <div class="side-by-side-container">
           <div class="input-panel">
+            <!-- Random Offer Toggle -->
+            <div class="random-offer-container">
+              <div class="random-offer-header">
+                <div class="random-offer-title">
+                  <span class="random-offer-icon">🎲</span>
+                  <span>Random Offer</span>
+                </div>
+                <div class="random-offer-toggle" id="randomOfferSwitch" onclick="toggleRandomOffer()"></div>
+              </div>
+              
+              <!-- Offer Checkboxes -->
+              <div class="offer-checkboxes" id="offerCheckboxes">
+                <div class="offer-checkbox-item">
+                  <input type="checkbox" id="offer1" checked>
+                  <label for="offer1" class="offer-checkbox-label">Offer 1 - IMO</label>
+                </div>
+                <div class="offer-checkbox-item">
+                  <input type="checkbox" id="offer2" checked>
+                  <label for="offer2" class="offer-checkbox-label">Offer 2 - TRAFEE</label>
+                </div>
+                <div class="offer-checkbox-item">
+                  <input type="checkbox" id="offer3" checked>
+                  <label for="offer3" class="offer-checkbox-label">Offer 3 - LP</label>
+                </div>
+              </div>
+            </div>
+            
             <!-- Offer Selection -->
-            <div class="offer-selection">
+            <div class="offer-selection" id="offerSelection">
               <label class="offer-label">Pilih Offer:</label>
               <select id="offerSelect">
                 <option value="https://kramat11.github.io/landing-kahf-1766161652367/">Offer 1 - IMO </option>
@@ -1032,6 +1180,22 @@
                 <option value="https://kramat11.github.io/coba3">Offer 3 - LP </option>
               </select>
               <div class="offer-info"></div>
+            </div>
+            
+            <!-- Offer Stats (shown when random is enabled) -->
+            <div class="offer-stats" id="offerStats" style="display: none;">
+              <div class="offer-stat" id="imoStat">
+                <div class="offer-stat-value" id="imoCount">0</div>
+                <div>IMO</div>
+              </div>
+              <div class="offer-stat" id="trafeeStat">
+                <div class="offer-stat-value" id="trafeeCount">0</div>
+                <div>TRAFEE</div>
+              </div>
+              <div class="offer-stat" id="lpStat">
+                <div class="offer-stat-value" id="lpCount">0</div>
+                <div>LP</div>
+              </div>
             </div>
             
             <!-- Input for number of links, now larger and on its own line -->
@@ -1237,6 +1401,31 @@
       document.getElementById('logoutBtn').style.display = 'block';
     }
 
+    // Toggle random offer
+    let isRandomOfferEnabled = false;
+    
+    function toggleRandomOffer() {
+      isRandomOfferEnabled = !isRandomOfferEnabled;
+      const switchElement = document.getElementById('randomOfferSwitch');
+      const offerSelection = document.getElementById('offerSelection');
+      const offerCheckboxes = document.getElementById('offerCheckboxes');
+      const offerStats = document.getElementById('offerStats');
+      
+      if (isRandomOfferEnabled) {
+        switchElement.classList.add('active');
+        offerSelection.style.opacity = '0.5';
+        offerSelection.style.pointerEvents = 'none';
+        offerCheckboxes.classList.add('show');
+        offerStats.style.display = 'flex';
+      } else {
+        switchElement.classList.remove('active');
+        offerSelection.style.opacity = '1';
+        offerSelection.style.pointerEvents = 'auto';
+        offerCheckboxes.classList.remove('show');
+        offerStats.style.display = 'none';
+      }
+    }
+
     function rand8() {
       const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       let r = "";
@@ -1246,31 +1435,105 @@
       return r;
     }
 
+    // Define offers array
+    const offers = [
+      { id: 'offer1', url: "https://kramat11.github.io/landing-kahf-1766161652367/", name: "IMO", statId: 'imoStat', countId: 'imoCount' },
+      { id: 'offer2', url: "https://kramat11.github.io/KAHF", name: "TRAFEE", statId: 'trafeeStat', countId: 'trafeeCount' },
+      { id: 'offer3', url: "https://kramat11.github.io/coba3", name: "LP", statId: 'lpStat', countId: 'lpCount' }
+    ];
+
     function generateRandom() {
-      const offerSelect = document.getElementById("offerSelect");
-      const selectedOffer = offerSelect.value;
       const countInput = document.getElementById("linkCount");
       const count = parseInt(countInput.value) || 100;
       
       if (count < 1) { showNotification("Jumlah link minimal 1!"); return; }
       if (count > 1000) { showNotification("Jumlah link maksimal 1000!"); return; }
       
+      let selectedOffers = [];
+      
+      if (isRandomOfferEnabled) {
+        // Get selected offers from checkboxes
+        selectedOffers = offers.filter(offer => {
+          return document.getElementById(offer.id).checked;
+        });
+        
+        // Check if at least one offer is selected
+        if (selectedOffers.length === 0) {
+          showNotification("Pilih minimal 1 offer untuk random!");
+          return;
+        }
+      } else {
+        // Use the selected offer from dropdown
+        const offerSelect = document.getElementById("offerSelect");
+        const selectedIndex = offerSelect.selectedIndex;
+        selectedOffers = [offers[selectedIndex]];
+      }
+      
       const out = document.getElementById("randomOutput");
       out.innerHTML = "";
       window.randomLinks = "";
-
+      
+      // Initialize offer counters
+      const offerCounters = {};
+      offers.forEach(offer => {
+        offerCounters[offer.name] = 0;
+      });
+      
+      // Hide all offer stats initially
+      offers.forEach(offer => {
+        const statElement = document.getElementById(offer.statId);
+        if (statElement) {
+          statElement.style.display = 'none';
+        }
+      });
+      
+      // Show only selected offer stats
+      selectedOffers.forEach(offer => {
+        const statElement = document.getElementById(offer.statId);
+        if (statElement) {
+          statElement.style.display = 'block';
+        }
+      });
+      
+      // Generate links
       for (let i = 0; i < count; i++) {
+        // Select a random offer from selected offers
+        const randomIndex = Math.floor(Math.random() * selectedOffers.length);
+        const selectedOffer = selectedOffers[randomIndex];
+        
+        // Increment counter for the selected offer
+        offerCounters[selectedOffer.name]++;
+        
         const kode = rand8();
-        const link = `${selectedOffer}?${kode}`;
+        const link = `${selectedOffer.url}?${kode}`;
         window.randomLinks += link + "\n";
         out.innerHTML += `<a href="${link}" target="_blank">${link}</a>`;
+      }
+      
+      // Update offer stats if random is enabled
+      if (isRandomOfferEnabled) {
+        selectedOffers.forEach(offer => {
+          const countElement = document.getElementById(offer.countId);
+          if (countElement) {
+            countElement.textContent = offerCounters[offer.name];
+          }
+        });
       }
       
       // Show result and copy button
       document.getElementById("randomResult").style.display = "block";
       document.getElementById("copyRandomBtn").style.display = "block";
       
-      showNotification(`Berhasil generate ${count} link dengan offer: ${offerSelect.options[offerSelect.selectedIndex].text.split(' - ')[1]}`);
+      let notificationMessage;
+      if (isRandomOfferEnabled) {
+        const offerNames = selectedOffers.map(o => o.name).join(', ');
+        notificationMessage = `Berhasil generate ${count} link dengan random offer: ${offerNames}!`;
+      } else {
+        const offerSelect = document.getElementById("offerSelect");
+        notificationMessage = `Berhasil generate ${count} link dengan offer: ${offerSelect.options[offerSelect.selectedIndex].text.split(' - ')[1]}`;
+      }
+      
+      showNotification(notificationMessage);
     }
 
     function copyRandom() {
